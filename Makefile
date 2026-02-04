@@ -8,17 +8,17 @@ qemu: fidi.iso
 
 fidi.iso: build
 	mkdir -p isodir/boot/grub
-	cp kernel/fidi.kernel isodir/boot/fidi.kernel
+	cp sysroot/boot/fidi.kernel isodir/boot/fidi.kernel
 	cp kernel/arch/x86_64/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o fidi.iso isodir
 
 build: fidi.kernel
 
 fidi.kernel:
-	$(MAKE) -C kernel all SYSROOT=$(CURDIR)/sysroot
+	$(MAKE) -C kernel all BUILDDIR=$(CURDIR)/build SYSROOT=$(CURDIR)/sysroot
 
 clean:
-	rm -f *.iso
+	rm -f fidi.iso
+	rm -rf build/
 	rm -rf isodir/
-	$(MAKE) -C kernel clean
-
+	rm -rf sysroot/

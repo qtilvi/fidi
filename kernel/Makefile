@@ -1,12 +1,14 @@
-.PHONY: all clean
+.PHONY: all
 
 
 CC := x86_64-elf-gcc
 AS := nasm
 
-CFLAGS :=-O2 -g
+CFLAGS 		:= -O2 -g
+CDEPFLAGS	:= -MD -MP
 
-CFLAGS	:= $(CFLAGS) -std=gnu23 -ffreestanding -Wall -Wextra --sysroot=$(SYSROOT)
+CFLAGS	:= $(CDEPFLAGS) $(CFLAGS) -std=gnu23 -ffreestanding -Wall -Wextra --sysroot=$(SYSROOT)
+ASFLAGS := -f elf64
 
 #  -nostdlib	-> need to supply memcmp, memset, memcpy and memmove
 #  -lgcc		-> docs said to include, so why not
@@ -15,8 +17,7 @@ LIBS	:= -nostdlib \
 		   -lgcc \
 		   -lk \
 
-ARCHDIR			:= $(CURDIR)/arch/x86_64
-ARCHDIR_BOOT	:= $(ARCHDIR)/boot
+ARCHDIR			:= arch/x86_64
 
 include $(ARCHDIR)/make.config
 
@@ -31,13 +32,12 @@ LINK_LIST	:= $(KERNEL_OBJS) \
 all: fidi.kernel
 
 fidi.kernel: $(OBJS) $(ARCHDIR)/linker.ld
-	$(CC) -T $(ARCHDIR)/linker.ld $(CFLAGS) $(KERNEl_OBJS) -o $@
+	$(CC) -T $(ARCHDIR)/linker.ld $(CFLAGS) $(LINK_LIST) -o $(SYSROOT)/boot/$@
 
-core/kernel_main.o: core/kernel_main.c
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(ARCHDIR)/boot/boot.o: $(ARCHDIR)/boot/boot.asm
-	$(AS) -f elf64 $< -o $@
+%.o: %.asm
+	$(AS) $(ASFLAGS) $< -o $@
 
-clean:
-	rm -f $(OBJS) fidi.kernel
+-include $(OBJS:.o=.d)
