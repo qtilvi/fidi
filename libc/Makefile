@@ -8,7 +8,7 @@ CFLAGS := -O2 -g $(CDEPFLAGS) -std=gnu23 -ffreestanding -Wall -Wextra
 CPPFLAGS := -D__is_libk -Iinclude
 
 SYSROOT ?=
-PREFIX ?= /usr/local
+PREFIX ?= /usr
 EXEC_PREFIX ?= $(PREFIX)
 INCLUDEDIR := $(PREFIX)/include
 LIBDIR := $(EXEC_PREFIX)/lib
@@ -19,16 +19,20 @@ FREE_OBJ := \
 	string/memmove.o \
 	string/memset.o
 
-LIBK_OBJ := $(FREE_OBJ:.o=.libk.o)
+LIBK_OBJ := \
+	$(BUILDDIR)/string/memcmp.libk.o \
+	$(BUILDDIR)/string/memcpy.libk.o \
+	$(BUILDDIR)/string/memmove.libk.o \
+	$(BUILDDIR)/string/memset.libk.o
 
 all: libk.a install-headers install-libs
 
-libk.a: $(BUILDDIR)/$(LIBK_OBJ)
+libk.a: $(LIBK_OBJ)
 	$(AR) rcs $@ $^
 
 $(BUILDDIR)/%.libk.o: %.c
 	mkdir -p $(dir $@)
-	$(CC) -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c $< -o $@
 
 install-headers:
 	mkdir -p $(SYSROOT)$(INCLUDEDIR)
@@ -38,5 +42,4 @@ install-libs:
 	mkdir -p $(SYSROOT)$(LIBDIR)
 	cp libk.a $(SYSROOT)$(LIBDIR)
 
--include $(BUILDDIR)/$(LIBK_OBJ:.o=.d)
-
+-include $(LIBK_OBJ:.libk.o=.d)
