@@ -1,0 +1,8 @@
+build/
+isodir/
+sysroot/
+*.o
+*.d
+*.kernel
+*.iso
+*.a

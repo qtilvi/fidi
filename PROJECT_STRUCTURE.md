@@ -31,6 +31,7 @@ fidi/
 │   └───usr/
 │       ├───include/
 │       └───lib/
+├───.gitignore
 ├───fidi.iso (not source)
 ├───Makefile
 ├───PROJECT_STRUCTURE.md
