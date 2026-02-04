@@ -34,6 +34,6 @@ fidi/
 ├───fidi.iso (not source)
 ├───Makefile
 ├───PROJECT_STRUCTURE.md
-├───README.md
-└───TODO.md
+└───README.md
+
 ```
