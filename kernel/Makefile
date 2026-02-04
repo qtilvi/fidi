@@ -31,7 +31,8 @@ LINK_LIST	:= $(KERNEL_OBJS) \
 
 all: fidi.kernel
 
-fidi.kernel: $(OBJS) $(ARCHDIR)/linker.ld
+fidi.kernel: $(KERNEL_OBJS) $(ARCHDIR)/linker.ld
+	mkdir -p $(SYSROOT)/boot/
 	$(CC) -T $(ARCHDIR)/linker.ld $(CFLAGS) $(LINK_LIST) -o $(SYSROOT)/boot/$@
 
 %.o: %.c
