@@ -1,7 +1,7 @@
 ```text
 fidi/
 ├───.git/ (not source, also can't be fucked to do THAT)
-├───build/ (not source)
+├───build/ (not source, same as fidi/ but keep only *.asm and *.c and their parent directories up to fidi/)
 ├───isodir/ (not source)
 │   └───boot/
 │       ├───grub/
