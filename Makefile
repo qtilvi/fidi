@@ -15,7 +15,8 @@ fidi.iso: build
 build: fidi.kernel
 
 fidi.kernel:
-	$(MAKE) -C kernel all BUILDDIR=$(CURDIR)/build SYSROOT=$(CURDIR)/sysroot
+	mkdir -p build/kernel/
+	$(MAKE) -C kernel all BUILDDIR=$(CURDIR)/build/kernel SYSROOT=$(CURDIR)/sysroot
 
 clean:
 	rm -f fidi.iso
