@@ -12,7 +12,10 @@ fidi.iso: build
 	cp kernel/arch/x86_64/grub.cfg isodir/boot/grub/grub.cfg
 	grub-mkrescue -o fidi.iso isodir
 
-build: fidi.kernel
+build: libc fidi.kernel
+
+libc:
+	$(MAKE) -C libc all BUILDDIR=$(CURDIR)/build/libc SYSROOT=$(CURDIR)/sysroot
 
 fidi.kernel:
 	mkdir -p build/kernel/

@@ -21,9 +21,14 @@ fidi/
 │   └───Makefile
 ├───libc
 │   ├───include/
-│   ├───stdio/
-│   ├───stdlib/
+│   │   ├───sys/
+│   │   │   └───cdefs.h
+│   │   └───string.h
 │   ├───string/
+│   │   ├───memcmp.c
+│   │   ├───memcpy.c
+│   │   ├───memmove.c
+│   │   └───memset.c
 │   └───Makefile
 ├───sysroot/ (not source)
 │   ├───boot/
