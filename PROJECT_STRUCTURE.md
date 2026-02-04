@@ -1,12 +1,19 @@
-# source directory
-
 ```text
 fidi/
+├───build/ (not source)
+├───isodir/ (not source)
+├───sysroot/ (not source)
+│   └───boot/
+│       ├───grub/
+│       │   └───grub.cfg
+│       └───fidi.kernel
 ├───kernel/
 │   ├───arch/
 │   │   └───x86_64/
 │   │       ├───boot/
-│   │       │   └───boot.asm
+│   │       │   ├───boot.asm
+│   │       │   ├───switch_to_pm.asm
+│   │       │   └───switch_to_lm.asm
 │   │       ├───grub.cfg
 │   │       ├───linker.ld
 │   │       └───make.config
@@ -19,7 +26,7 @@ fidi/
 │   ├───stdlib/
 │   ├───string/
 │   └───Makefile
-├───sysroot/
+├───sysroot/ (not source)
 │   ├───boot/
 │   │   ├───grub/
 │   │   │   └───grub.cfg
@@ -27,31 +34,9 @@ fidi/
 │   └───usr/
 │       ├───include/
 │       └───lib/
-├───project_structure.md
-├───readme.md
-├───todo.md
-└───Makefile
-```
-
-# template/future directory
-
-```text
-fidi/
-├───kernel/
-│   ├───arch/
-│   │   └───x86_64/
-│   ├───drivers/
-│   ├───include/
-│   ├───kernel/
-│   └───Makefile
-├───libc
-│   ├───arch/
-│   ├───include/
-│   ├───stdio/
-│   ├───stdlib/
-│   ├───string/
-│   └───Makefile
-├───project_structure.md
-├───readme.md
-└───Makefile
+├───fidi.iso (not source)
+├───Makefile
+├───PROJECT_STRUCTURE.md
+├───README.md
+└───TODO.md
 ```
