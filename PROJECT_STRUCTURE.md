@@ -1,8 +1,8 @@
 ```text
 fidi/
+├───.git/ (not source, also can't be fucked to do THAT)
 ├───build/ (not source)
 ├───isodir/ (not source)
-├───sysroot/ (not source)
 │   └───boot/
 │       ├───grub/
 │       │   └───grub.cfg
@@ -12,7 +12,6 @@ fidi/
 │   │   └───x86_64/
 │   │       ├───boot/
 │   │       │   ├───boot.asm
-│   │       │   ├───switch_to_pm.asm
 │   │       │   └───switch_to_lm.asm
 │   │       ├───grub.cfg
 │   │       ├───linker.ld
@@ -28,8 +27,6 @@ fidi/
 │   └───Makefile
 ├───sysroot/ (not source)
 │   ├───boot/
-│   │   ├───grub/
-│   │   │   └───grub.cfg
 │   │   └───fidi.kernel
 │   └───usr/
 │       ├───include/
