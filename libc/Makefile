@@ -25,7 +25,7 @@ LIBK_OBJ := $(BUILDDIR)/string/memcmp.libk.o \
 all: libk.a install-headers install-libs
 
 libk.a: $(LIBK_OBJ)
-	$(AR) rcs $@ $^
+	$(AR) rcs $(BUILDDIR)/$@ $^
 
 $(BUILDDIR)/%.libk.o: %.c
 	mkdir -p $(dir $@)
@@ -37,6 +37,6 @@ install-headers:
 
 install-libs:
 	mkdir -p $(SYSROOT)$(LIBDIR)
-	cp libk.a $(SYSROOT)$(LIBDIR)
+	cp $(BUILDDIR)/libk.a $(SYSROOT)$(LIBDIR)
 
 -include $(LIBK_OBJ:.libk.o=.d)
