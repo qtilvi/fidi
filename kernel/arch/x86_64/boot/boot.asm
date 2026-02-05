@@ -22,30 +22,38 @@ bits 32
 extern switch_to_lm
 global _start
 
-reconfigure_pm:
-    ; intel sdm vol 3a 11.9.1
+_start:
     cli
 
-    ; laod gdtr with base of gdt
+    mov esp, stack_top
+    xor ebp, ebp
+
+    call reconfigure_pm
+
+    jmp switch_to_lm
+
+reconfigure_pm:
+    ; intel sdm vol 3a 11.9.1 | 1. -> 4.
+
     lgdt [gdt_descriptor]
 
-    ; with a MOV CR0 instruction, set PE (opt. PG) flag in control register CR0
     mov eax, cr0
     or eax, 1
     mov cr0, eax
 
-    ; execute a far JMP instruction
+    ; far JMP, for CS register
     jmp KERNEL_CODE_SEGMENT:finish_reconfigure_pm
 
 finish_reconfigure_pm:
-    ; reload segment registers DS, SS, ES, FS, and GS. load segment registers ES, FS, and GS with a null selector
-    ; maybe need to do idt stuff, I'm gonna not and see if that works
-    jmp switch_to_lm
+    ; intel sdm vol 3a 11.9.1 | 9.
+    mov ax, KERNEL_DATA_SEGMENT
+    mov ds, ax
+    mov es, ax
+    mov fs, ax
+    mov gs, ax
+    mov ss, ax
 
-_start:
-    cli
-
-    jmp reconfigure_pm
+    ret
 
 
 section .rodata
@@ -76,3 +84,9 @@ gdt_start:
         db 0xcf     ; limit_flags
         db 0        ; base3
 gdt_end:
+
+section .bss
+align 16
+stack_space:
+    resb 4096
+stack_top:

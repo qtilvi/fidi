@@ -3,7 +3,10 @@ bits 32
 
 global switch_to_lm
 switch_to_lm:
-    cli
+    mov al, 'f'
+    mov ah, 0x0d
+    mov [0xb8000], ax
+
     hlt
     ; set up paging | intel sdm vol 3a 5.5
 
