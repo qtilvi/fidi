@@ -10,9 +10,6 @@ CDEPFLAGS	:= -MD -MP
 CFLAGS	:= $(CDEPFLAGS) $(CFLAGS) -std=gnu23 -ffreestanding -Wall -Wextra --sysroot=$(SYSROOT)
 ASFLAGS := -f elf64
 
-#  -nostdlib	-> need to supply memcmp, memset, memcpy and memmove
-#  -lgcc		-> docs said to include, so why not
-#  -lk			-> libk.a will be in fidi/sysroot/usr/lib/libk.a
 LIBS	:= -nostdlib \
 		   -lgcc \
 		   -lk \
@@ -26,9 +23,7 @@ KERNEL_OBJS := $(KERNEL_ARCH_OBJS) \
 
 OBJS 		:= $(KERNEL_OBJS) \
 
-LINK_LIST	:= $(BUILDDIR)/$(KERNEL_ARCH_OBJS) \
-			   $(BUILDDIR)/core/kernel_main.o \
-			   $(LIBS) \
+LINK_LIST	:= $(foreach obj,$(KERNEL_OBJS),$(BUILDDIR)/$(obj)) $(LIBS)
 
 all: fidi.kernel
 

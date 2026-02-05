@@ -1,6 +1,5 @@
 ```text
 fidi/
-├───.git/ (not source, also can't be fucked to do THAT)
 ├───build/ (not source, same as fidi/ but keep only *.asm and *.c and their parent directories up to fidi/)
 ├───isodir/ (not source)
 │   └───boot/
@@ -35,8 +34,11 @@ fidi/
 │   │   └───fidi.kernel
 │   └───usr/
 │       ├───include/
+│       │   ├───sys/
+│       │   │   └───cdefs.h
+│       │   └───string.h
 │       └───lib/
-├───.gitignore
+│           └───libk.a
 ├───fidi.iso (not source)
 ├───Makefile
 ├───PROJECT_STRUCTURE.md

@@ -8,8 +8,8 @@ SECTIONS
         *(.multiboot)
         *(.text)
     }
-    .bss BLOCK(4K) : ALIGN(4K)
+    .rodata BLOCK(4K) : ALIGN(4K)
     {
-        *(.bss)
+        *(.rodata)
     }
 }
