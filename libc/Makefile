@@ -3,27 +3,24 @@
 CC := x86_64-elf-gcc
 AR := x86_64-elf-ar
 
-CDEPFLAGS := -MD -MP
 CFLAGS := -O2 -g $(CDEPFLAGS) -std=gnu23 -ffreestanding -Wall -Wextra
 CPPFLAGS := -D__is_libk -Iinclude
+CDEPFLAGS := -MD -MP
 
-SYSROOT ?=
 PREFIX ?= /usr
 EXEC_PREFIX ?= $(PREFIX)
 INCLUDEDIR := $(PREFIX)/include
 LIBDIR := $(EXEC_PREFIX)/lib
 
-FREE_OBJ := \
-	string/memcmp.o \
-	string/memcpy.o \
-	string/memmove.o \
-	string/memset.o
+FREE_OBJ := string/memcmp.o \
+			string/memcpy.o \
+			string/memmove.o \
+			string/memset.o \
 
-LIBK_OBJ := \
-	$(BUILDDIR)/string/memcmp.libk.o \
-	$(BUILDDIR)/string/memcpy.libk.o \
-	$(BUILDDIR)/string/memmove.libk.o \
-	$(BUILDDIR)/string/memset.libk.o
+LIBK_OBJ := $(BUILDDIR)/string/memcmp.libk.o \
+			$(BUILDDIR)/string/memcpy.libk.o \
+			$(BUILDDIR)/string/memmove.libk.o \
+			$(BUILDDIR)/string/memset.libk.o \
 
 all: libk.a install-headers install-libs
 
